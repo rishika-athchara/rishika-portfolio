@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import GlassButton from './GlassButton';
+import profileImg from '../assets/rishika-profile.jpg';
 
 /* ── decorative organic blob ───────────────────────── */
 const Blob = ({ style, className }) => (
@@ -66,87 +67,19 @@ const Portrait = () => {
           boxShadow: '0 24px 60px -12px rgba(53, 69, 53, 0.16), 0 12px 28px -6px rgba(113, 134, 106, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.75)',
         }}
       >
-        {/* Abstract portrait artwork */}
-        <svg
-          viewBox="0 0 380 475"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <defs>
-            <radialGradient id="heroPortraitBg" cx="50%" cy="40%" r="65%">
-              <stop offset="0%" stopColor="#E8EDDF" />
-              <stop offset="60%" stopColor="#E8DDC9" />
-              <stop offset="100%" stopColor="#A8B99A" stopOpacity="0.55" />
-            </radialGradient>
-            <linearGradient id="silhouetteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#71866A" stopOpacity="0.28" />
-              <stop offset="100%" stopColor="#354535" stopOpacity="0.35" />
-            </linearGradient>
-            <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#C6A77B" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#A8B99A" stopOpacity="0.35" />
-            </linearGradient>
-          </defs>
+        {/* Real portrait photo */}
+        <img
+          src={profileImg}
+          alt="Rishika Athchara"
+          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+        />
 
-          <rect width="380" height="475" fill="url(#heroPortraitBg)" />
-
-          {/* Abstract background halos */}
-          <circle cx="190" cy="180" r="140" fill="url(#accentGlow)" filter="blur(20px)" />
-          <circle cx="190" cy="165" r="95" fill="rgba(255, 255, 255, 0.45)" />
-
-          {/* Abstract silhouette & organic botanical shapes */}
-          <ellipse cx="190" cy="165" rx="64" ry="72" fill="url(#silhouetteGrad)" />
-          <ellipse cx="190" cy="165" rx="48" ry="55" fill="rgba(113, 134, 106, 0.22)" />
-
-          {/* Shoulder/torso curve */}
-          <path
-            d="M 60 475 Q 90 325 190 300 Q 290 325 320 475"
-            fill="url(#silhouetteGrad)"
-          />
-
-          {/* Botanical flowing lines */}
-          <path
-            d="M 30 440 Q 80 360 55 260 Q 75 285 110 245"
-            stroke="rgba(113, 134, 106, 0.35)"
-            strokeWidth="2"
-            fill="none"
-          />
-          <path
-            d="M 350 460 Q 310 370 335 270 Q 320 295 285 255"
-            stroke="rgba(198, 167, 123, 0.4)"
-            strokeWidth="2"
-            fill="none"
-          />
-
-          {/* Leaves */}
-          <ellipse cx="60" cy="255" rx="10" ry="18" fill="rgba(113, 134, 106, 0.3)" transform="rotate(-32 60 255)" />
-          <ellipse cx="105" cy="240" rx="9" ry="16" fill="rgba(113, 134, 106, 0.25)" transform="rotate(25 105 240)" />
-          <ellipse cx="320" cy="265" rx="10" ry="18" fill="rgba(198, 167, 123, 0.32)" transform="rotate(30 320 265)" />
-          <ellipse cx="285" cy="250" rx="9" ry="16" fill="rgba(198, 167, 123, 0.25)" transform="rotate(-25 285 250)" />
-
-          {/* Elegant name badge in portrait base */}
-          <text
-            x="190"
-            y="415"
-            textAnchor="middle"
-            fontFamily="'Cormorant Garamond', Georgia, serif"
-            fontSize="15"
-            fontWeight="600"
-            fill="rgba(53, 69, 53, 0.65)"
-            letterSpacing="3"
-          >
-            RISHIKA ATHCHARA
-          </text>
-        </svg>
-
-        {/* Soft glass overlay */}
+        {/* Soft glass vignette & depth overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(255, 255, 255, 0.12) 0%, transparent 45%, rgba(53, 69, 53, 0.05) 100%)',
+              'linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, transparent 55%, rgba(53, 69, 53, 0.28) 100%)',
           }}
         />
 
@@ -157,23 +90,24 @@ const Portrait = () => {
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, transparent 55%)',
           }}
         />
-      </div>
 
-      {/* Subtle photo hint badge */}
-      <div
-        className="absolute bottom-5 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full text-xs font-medium tracking-wide flex items-center gap-1.5 transition-all duration-300 pointer-events-none"
-        style={{
-          background: 'rgba(253, 252, 248, 0.78)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.85)',
-          color: 'var(--text-secondary)',
-          boxShadow: '0 4px 16px rgba(53, 69, 53, 0.08)',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        <span>📸</span>
-        <span>Add your portrait here</span>
+        {/* Elegant name badge in portrait base */}
+        <div
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase flex items-center gap-2 pointer-events-none"
+          style={{
+            background: 'rgba(253, 252, 248, 0.85)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255, 255, 255, 0.9)',
+            color: 'var(--botanical)',
+            boxShadow: '0 6px 20px rgba(53, 69, 53, 0.12)',
+            whiteSpace: 'nowrap',
+            letterSpacing: '0.14em',
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+        >
+          <span>RISHIKA ATHCHARA</span>
+        </div>
       </div>
     </motion.div>
   );

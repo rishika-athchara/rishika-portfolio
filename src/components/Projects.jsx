@@ -312,7 +312,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="section-padding relative overflow-hidden"
+      className="section-padding relative overflow-hidden scroll-mt-28 md:scroll-mt-32"
       style={{ background: 'var(--pearl)' }}
     >
       {/* Blob */}

@@ -3,11 +3,14 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Home',     href: '#home' },
-  { label: 'About',   href: '#about' },
-  { label: 'Projects',href: '#projects' },
-  { label: 'Skills',  href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home',           href: '#home' },
+  { label: 'About',          href: '#about' },
+  { label: 'Projects',       href: '#projects' },
+  { label: 'Skills',         href: '#skills' },
+  { label: 'Achievements',   href: '#achievements' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Resume',         href: '#resume' },
+  { label: 'Contact',        href: '#contact' },
 ];
 
 /* ── Animated RA logo ──────────────────── */
@@ -124,11 +127,11 @@ const Navbar = () => {
       setScrollDir(y > lastScrollY.current ? 'down' : 'up');
       lastScrollY.current = y;
 
-      /* Active section detection */
+      /* Active section detection with nav offset compensation */
       const ids = navLinks.map(l => l.href.replace('#', ''));
       for (let i = ids.length - 1; i >= 0; i--) {
         const el = document.getElementById(ids[i]);
-        if (el && el.getBoundingClientRect().top <= 110) {
+        if (el && el.getBoundingClientRect().top <= 140) {
           setActive(navLinks[i].label);
           break;
         }
@@ -141,7 +144,21 @@ const Navbar = () => {
   const handleNav = (href, label) => {
     setActive(label);
     setMobileOpen(false);
-    document.getElementById(href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' });
+    const targetId = href.replace('#', '');
+    const el = document.getElementById(targetId);
+    if (el) {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(el, { offset: -104, duration: 1.2 });
+      } else {
+        const navOffset = 104;
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }
   };
 
   return (
@@ -155,23 +172,23 @@ const Navbar = () => {
       >
         <motion.div
           className="w-full"
-          style={{ maxWidth: '1100px' }}
+          style={{ maxWidth: '1240px' }}
           animate={{ y: scrolled && scrollDir === 'down' ? 0 : 0 }}
           transition={{ duration: 0.3 }}
         >
           <div
-            className="flex items-center justify-between px-5 md:px-7 rounded-[2rem]"
+            className="flex items-center justify-between px-4 sm:px-6 rounded-[2rem]"
             style={{
               height: scrolled ? '58px' : '66px',
               background: scrolled
-                ? 'rgba(253,252,248,0.88)'
-                : 'rgba(253,252,248,0.72)',
+                ? 'rgba(252,251,247,0.92)'
+                : 'rgba(252,251,247,0.78)',
               backdropFilter:  'blur(28px) saturate(1.5)',
               WebkitBackdropFilter: 'blur(28px) saturate(1.5)',
-              border: '1px solid rgba(255,255,255,0.80)',
+              border: '1px solid rgba(255,255,255,0.85)',
               boxShadow: scrolled
-                ? '0 8px 40px rgba(53,69,53,0.12), 0 2px 8px rgba(53,69,53,0.06), inset 0 1px 0 rgba(255,255,255,0.65)'
-                : '0 4px 24px rgba(53,69,53,0.07), inset 0 1px 0 rgba(255,255,255,0.5)',
+                ? '0 8px 40px rgba(52,70,56,0.12), 0 2px 8px rgba(52,70,56,0.06), inset 0 1px 0 rgba(255,255,255,0.65)'
+                : '0 4px 24px rgba(52,70,56,0.07), inset 0 1px 0 rgba(255,255,255,0.5)',
               transition: 'all 0.4s cubic-bezier(0.22,1,0.36,1)',
             }}
           >
@@ -179,23 +196,50 @@ const Navbar = () => {
             <RALogo onClick={() => handleNav('#home', 'Home')} />
 
             {/* Desktop nav links */}
-            <ul className="hidden md:flex items-center gap-1">
+            <ul className="hidden xl:flex items-center gap-1">
               {navLinks.map(link => (
                 <NavLink key={link.label} link={link} active={active} onClick={handleNav} />
               ))}
             </ul>
 
+            {/* Intermediate screens (md-lg) compact nav links */}
+            <ul className="hidden md:flex xl:hidden items-center gap-0.5">
+              {navLinks.map(link => (
+                <li key={link.label}>
+                  <button
+                    onClick={() => handleNav(link.href, link.label)}
+                    className="relative px-2.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200"
+                    style={{
+                      color: active === link.label ? 'var(--botanical)' : 'var(--text-secondary)',
+                    }}
+                  >
+                    {active === link.label && (
+                      <motion.span
+                        layoutId="navPillMd"
+                        className="absolute inset-0 rounded-full"
+                        style={{
+                          background: 'rgba(169,185,154,0.22)',
+                          border: '1px solid rgba(169,185,154,0.42)',
+                        }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.label}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+
             {/* CTA + hamburger */}
             <div className="flex items-center gap-3">
-              {/* "Hire Me" CTA – desktop only */}
-              <motion.a
-                href="mailto:rishika.athghara2406@gmail.com"
-                className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide"
+              {/* "Hire Me" CTA – links to Contact */}
+              <motion.button
+                onClick={() => handleNav('#contact', 'Contact')}
+                className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide cursor-pointer"
                 style={{
                   background: 'var(--botanical)',
                   color: 'var(--porcelain)',
                   letterSpacing: '0.06em',
-                  textDecoration: 'none',
                 }}
                 whileHover={{ scale: 1.04, y: -1 }}
                 whileTap={{ scale: 0.97 }}
@@ -203,7 +247,7 @@ const Navbar = () => {
               >
                 <span>✦</span>
                 <span>HIRE ME</span>
-              </motion.a>
+              </motion.button>
 
               {/* Hamburger */}
               <motion.button
@@ -286,17 +330,16 @@ const Navbar = () => {
                 transition={{ delay: navLinks.length * 0.055 }}
                 className="pt-2"
               >
-                <a
-                  href="mailto:rishika.athghara2406@gmail.com"
-                  className="flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold tracking-wide"
+                <button
+                  onClick={() => handleNav('#contact', 'Contact')}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl text-sm font-semibold tracking-wide"
                   style={{
                     background: 'var(--botanical)',
                     color: 'var(--porcelain)',
-                    textDecoration: 'none',
                   }}
                 >
                   ✦ Hire Me
-                </a>
+                </button>
               </motion.li>
             </ul>
           </motion.div>

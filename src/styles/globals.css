@@ -9,33 +9,38 @@
 ══════════════════════════════ */
 :root {
   /* ── Core palette ── */
-  --pearl:      #F8F6EF;
-  --porcelain:  #FDFCF8;
-  --pistachio:  #E8EDDF;
-  --sage:       #A8B99A;
-  --olive:      #71866A;
-  --botanical:  #354535;
-  --champagne:  #C6A77B;
-  --charcoal:   #30382D;
-  --beige:      #E8DDC9;
+  --pearl:      #F7F6F0;  /* Main background */
+  --ivory:      #F7F6F0;
+  --porcelain:  #FFFEFA;  /* Primary card */
+  --card-bg:    #FFFEFA;
+  --pistachio:  #EEF0E6;  /* Secondary background */
+  --sage:       #84957D;  /* Sage green */
+  --light-sage: #DFE6D7;  /* Light sage */
+  --olive:      #85897E;  /* Secondary text */
+  --botanical:  #35483B;  /* Forest green */
+  --forest:     #35483B;
+  --champagne:  #C9A875;  /* Warm champagne */
+  --gold:       #C9A875;
+  --charcoal:   #303C32;  /* Main text */
+  --border:     #E3E7DA;  /* Borders */
 
   /* ── Text ── */
-  --text-primary:   #30382D;
-  --text-secondary: #73776A;
-  --text-muted:     #96968A;
+  --text-primary:   #303C32;  /* Main text */
+  --text-secondary: #85897E;  /* Secondary text */
+  --text-muted:     #85897E;
 
   /* ── Glass surfaces ── */
-  --glass-white:        rgba(255, 255, 255, 0.58);
-  --glass-cream:        rgba(248, 246, 239, 0.72);
-  --glass-sage:         rgba(168, 185, 154, 0.22);
-  --glass-pistachio:    rgba(232, 237, 223, 0.60);
-  --glass-border:       rgba(255, 255, 255, 0.80);
-  --glass-border-sage:  rgba(168, 185, 154, 0.38);
+  --glass-white:        rgba(255, 254, 250, 0.78);
+  --glass-cream:        rgba(247, 246, 240, 0.85);
+  --glass-sage:         rgba(132, 149, 125, 0.16);
+  --glass-pistachio:    rgba(238, 240, 230, 0.70);
+  --glass-border:       #E3E7DA;
+  --glass-border-sage:  rgba(132, 149, 125, 0.35);
 
   /* ── Shadows ── */
-  --shadow-glass:       0 12px 40px rgba(53,69,53,0.08), 0 2px 8px rgba(53,69,53,0.04);
-  --shadow-glass-hover: 0 20px 56px rgba(53,69,53,0.14), 0 6px 18px rgba(53,69,53,0.08);
-  --shadow-elevated:    0 28px 72px rgba(53,69,53,0.12), 0 10px 28px rgba(53,69,53,0.08);
+  --shadow-glass:       0 10px 32px rgba(53,72,59,0.06), 0 2px 8px rgba(53,72,59,0.03);
+  --shadow-glass-hover: 0 16px 44px rgba(53,72,59,0.10), 0 4px 14px rgba(53,72,59,0.05);
+  --shadow-elevated:    0 24px 56px rgba(53,72,59,0.10), 0 8px 20px rgba(53,72,59,0.05);
 
   scroll-behavior: smooth;
 }
@@ -70,10 +75,21 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--pearl); }
 ::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--olive); }
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
 
 /* ══════════════════════════════
    GLASS SYSTEM
@@ -208,9 +224,18 @@ body {
 }
 
 /* ══════════════════════════════
-   SMOOTH SCROLL SECTION
+   SMOOTH SCROLL SECTION & SCROLL MARGINS
 ══════════════════════════════ */
 section { position: relative; }
+
+section[id], [id] {
+  scroll-margin-top: 104px;
+}
+@media (min-width: 768px) {
+  section[id], [id] {
+    scroll-margin-top: 112px;
+  }
+}
 
 /* ══════════════════════════════
    CUSTOM BUTTON STYLES

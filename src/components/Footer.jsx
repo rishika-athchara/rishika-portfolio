@@ -100,11 +100,14 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { label: 'Home',     href: '#home' },
-  { label: 'About',   href: '#about' },
-  { label: 'Projects',href: '#projects' },
-  { label: 'Skills',  href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home',           href: '#home' },
+  { label: 'About',          href: '#about' },
+  { label: 'Projects',       href: '#projects' },
+  { label: 'Skills',         href: '#skills' },
+  { label: 'Achievements',   href: '#achievements' },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Resume',         href: '#resume' },
+  { label: 'Contact',        href: '#contact' },
 ];
 
 /* ── Single social icon button ──────────────────── */
@@ -197,8 +200,23 @@ const SocialIconBtn = ({ link, index }) => {
 const Footer = () => {
   const year = new Date().getFullYear();
 
-  const handleNav = (href) =>
-    document.getElementById(href.replace('#', ''))?.scrollIntoView({ behavior: 'smooth' });
+  const handleNav = (href) => {
+    const targetId = href.replace('#', '');
+    const el = document.getElementById(targetId);
+    if (el) {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(el, { offset: -104, duration: 1.2 });
+      } else {
+        const navOffset = 104;
+        const elementPosition = el.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 

@@ -4,17 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        pearl: "#F8F6EF",
-        porcelain: "#FDFCF8",
-        pistachio: "#E8EDDF",
-        sage: "#A8B99A",
-        olive: "#71866A",
-        botanical: "#354535",
-        champagne: "#C6A77B",
-        beige: "#E8DDC9",
-        textPrimary: "#30382D",
-        textSecondary: "#73776A",
-        textMuted: "#96968A",
+        pearl: "#F7F6F0",        // Main background
+        ivory: "#F7F6F0",
+        porcelain: "#FFFEFA",    // Primary card
+        card: "#FFFEFA",
+        pistachio: "#EEF0E6",    // Secondary background
+        sage: "#84957D",         // Sage green
+        lightSage: "#DFE6D7",    // Light sage
+        forest: "#35483B",       // Forest green
+        botanical: "#35483B",
+        champagne: "#C9A875",    // Warm champagne
+        gold: "#C9A875",
+        borderSage: "#E3E7DA",   // Borders
+        textPrimary: "#303C32",  // Main text
+        textSecondary: "#85897E",// Secondary text
+        textMuted: "#85897E",
       },
       fontFamily: {
         sans: ["'DM Sans'", "system-ui", "sans-serif"],
